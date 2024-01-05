@@ -13,23 +13,25 @@ height = 84.0764
 [node name="Node2D" type="Node2D"]
 
 [node name="CanvasGroup" type="CanvasGroup" parent="."]
-position = Vector2(-497, 868)
+position = Vector2(2, 0)
 
 [node name="Slip" type="Sprite2D" parent="CanvasGroup"]
-position = Vector2(1028.86, 1262.81)
+position = Vector2(-6, 2)
 texture = ExtResource("1_xcoav")
 
 [node name="Bad" type="Sprite2D" parent="CanvasGroup"]
-position = Vector2(1027.86, 1253.81)
+position = Vector2(-7, 0)
 texture = ExtResource("2_ghpad")
 
 [node name="Details" type="Sprite2D" parent="CanvasGroup"]
-position = Vector2(1018.86, 1244.81)
+position = Vector2(1, -4)
 texture = ExtResource("3_34hm4")
 
 [node name="Ground" type="Sprite2D" parent="CanvasGroup"]
-position = Vector2(1024.86, 1259.81)
+position = Vector2(-2, -1)
 texture = ExtResource("4_jtuiq")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CanvasGroup/Ground"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 position = Vector2(-1445, -476)
