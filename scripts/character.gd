@@ -9,6 +9,7 @@ var facingLeft = false
 var rope = null
 var ropePos = null
 var ropeLen = 0;
+var draw_speed = 0.00001;
 
 
 var SPEED = 300.0 if rope == null else 600.0
@@ -24,6 +25,23 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _physics_process(delta):
+	if rope != null:
+		if rope.get_point_count() < 2:
+			var current_length = rope.get_point_position(0).distance_to(Vector2(0,0))
+			if current_length < ropeLen:
+				var direction = (ropePos - Vector2(0,0)).normalized()
+				var new_point = rope.get_point_position(0) + direction * draw_speed * delta
+				rope.add_point(new_point, 1)
+			else:
+				rope.add_point(to_local(ropePos), 1)
+		else:
+			var last_point = rope.get_point_position(rope.get_point_count() - 1)
+			var direction = (ropePos - last_point).normalized()
+			var new_point = last_point + direction * draw_speed * delta
+			if new_point.distance_to(ropePos) < draw_speed * delta:
+				rope.add_point(to_local(ropePos), rope.get_point_count())
+			else:
+				rope.add_point(new_point, rope.get_point_count())
 	
 	if facingLeft && velocity.x > 0:
 		self.transform *= Transform2D.FLIP_X
@@ -110,7 +128,7 @@ func _input(event):
 			_animated_sprite.frame = 4
 		else:
 			var space_state = get_world_2d().direct_space_state
-			
+
 			rope = Line2D.new()
 			rope.set_name("Rope")
 			add_child(rope)
@@ -119,7 +137,6 @@ func _input(event):
 			var result = space_state.intersect_ray(query)
 			if result:
 				ropePos = result.position
-				rope.add_point(to_local(ropePos),1)
 				ropeLen = to_local(ropePos).distance_to(Vector2(0,0))
 			else:
 				rope.queue_free()
