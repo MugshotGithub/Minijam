@@ -4,6 +4,7 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -11,6 +12,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var raycast : RayCast2D
 var isSlipping = false
 var xVelo = 0
+var facingLeft = true
 
 func _ready():
 	# Initialize the RayCast2D
@@ -33,11 +35,11 @@ func _physics_process(delta):
 			isSlipping = cellData.get_custom_data("slip")
 			var isRamp = cellData.get_custom_data("isRamp")
 			if (isRamp):
-				var direction = 1 if cellData.flip_h else -1
-				velocity.x = direction * 0.5 * SPEED
+				var direction = -1 if cellData.flip_h else 1
+				xVelo = clamp(xVelo + (direction*delta*gravity), -4*SPEED,4*SPEED)
 				
 			if isSlipping:
-				xVelo = velocity.x
+				velocity.x = xVelo
 	
 	
 	
@@ -56,5 +58,15 @@ func _physics_process(delta):
 			velocity.y = JUMP_VELOCITY
 	else:
 		velocity.x = xVelo
+	if velocity.x != 0:
+		xVelo = velocity.x
+	
+	if facingLeft && velocity.x > 0:
+		self.transform *= Transform2D.FLIP_X
+		facingLeft = false
+	elif !facingLeft && velocity.x < 0:
+		self.transform *= Transform2D.FLIP_X
+		facingLeft = true
 
+	
 	move_and_slide()
