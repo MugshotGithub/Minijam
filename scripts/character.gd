@@ -3,7 +3,7 @@ extends CharacterBody2D
 #Ice slippy things
 var isSlipping = false
 var xVelo = 0
-var facingLeft = true
+var facingLeft = false
 
 #Rope swingy things
 var rope = null
@@ -18,7 +18,7 @@ var JUMP_VELOCITY = -400.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-
+@onready var anim = get_node("AnimationPlayer")
 
 
 
@@ -82,6 +82,7 @@ func _physics_process(delta):
 				
 		else:
 			if direction:
+				anim.play("run")
 				velocity.x = direction * SPEED 
 			else:
 				velocity.x = move_toward(velocity.x, 0, SPEED)

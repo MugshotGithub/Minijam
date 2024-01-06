@@ -1,0 +1,93 @@
+{
+	"textures": [
+		{
+			"image": "spaceman-0.png",
+			"size": {
+				"w": 330,
+				"h": 116
+			},
+			"sprites": [
+				{
+					"filename": "idle.png",
+					"region": {
+						"x": 8,
+						"y": 8,
+						"w": 50,
+						"h": 100
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "run_1.png",
+					"region": {
+						"x": 74,
+						"y": 8,
+						"w": 50,
+						"h": 100
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "run_2.png",
+					"region": {
+						"x": 140,
+						"y": 8,
+						"w": 50,
+						"h": 100
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "shoot_float.png",
+					"region": {
+						"x": 206,
+						"y": 8,
+						"w": 50,
+						"h": 100
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "shoot_ground.png",
+					"region": {
+						"x": 272,
+						"y": 8,
+						"w": 50,
+						"h": 100
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:0f05fb5ec81a1b4d45e5d3b198b16bcb:1cb5ff3496a59ac4e5639b4d3e3c10fd:afc55dccd069692949bfcb3a0c57078b$"
+	}
+}
