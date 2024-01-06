@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://djk32c0lki4f3"]
+[gd_scene load_steps=11 format=3 uid="uid://djk32c0lki4f3"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_iwnie"]
 [ext_resource type="Texture2D" uid="uid://7hlsve4lp7mn" path="res://assets/slip.png" id="1_xcoav"]
@@ -7,8 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://o72itsr8glmg" path="res://assets/ground.png" id="4_jtuiq"]
 [ext_resource type="PackedScene" path="res://character.tscn" id="5_ejxjt"]
 [ext_resource type="Texture2D" uid="uid://b68nsrhhndhc6" path="res://tilesets/ground-0.png" id="6_yvfek"]
-[ext_resource type="Texture2D" uid="uid://dvmc6y4370v5k" path="res://assets/worm.png" id="8_45khd"]
-[ext_resource type="PackedScene" uid="uid://13fqmcth77ho" path="res://ropesegment.tscn" id="9_noy4l"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i1xkd"]
 resource_name = "Ground"
@@ -94,26 +92,3 @@ scale = Vector2(1, 0.5)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RopeHolder"]
 scale = Vector2(1, 0.5)
 shape = SubResource("RectangleShape2D_7rj22")
-
-[node name="Worm" type="Sprite2D" parent="RopeHolder/CollisionShape2D"]
-position = Vector2(0, 1)
-scale = Vector2(0.48, 0.94)
-texture = ExtResource("8_45khd")
-
-[node name="ropesegment" parent="." instance=ExtResource("9_noy4l")]
-position = Vector2(-2932, -171)
-
-[node name="PinJoint2D" type="PinJoint2D" parent="."]
-position = Vector2(-2932, -215)
-node_a = NodePath("../RopeHolder")
-node_b = NodePath("../ropesegment")
-disable_collision = false
-
-[node name="ropesegment2" parent="." instance=ExtResource("9_noy4l")]
-position = Vector2(-2936, -84)
-
-[node name="PinJoint2D2" type="PinJoint2D" parent="."]
-position = Vector2(-2936, -129)
-node_a = NodePath("../ropesegment")
-node_b = NodePath("../ropesegment2")
-disable_collision = false
