@@ -8,8 +8,6 @@ const JUMP_VELOCITY = -400.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-# RayCast2D to detect the terrain beneath the character
-var raycast : RayCast2D
 
 #Ice slippy things
 var isSlipping = false
@@ -21,9 +19,6 @@ var rope = null
 var ropePos = null
 var ropeLen = 0;
 
-func _ready():
-	# Initialize the RayCast2D
-	raycast = $RayCast2D
 
 func _physics_process(delta):
 	
@@ -43,8 +38,8 @@ func _physics_process(delta):
 			isSlipping = cellData.get_custom_data("slip")
 			var isRamp = cellData.get_custom_data("isRamp")
 			if (isRamp):
-				var direction = -1 if cellData.flip_h else 1
-				xVelo = clamp(xVelo + (direction*delta*gravity), -4*SPEED,4*SPEED)
+				var dir = -1 if cellData.flip_h else 1
+				xVelo = clamp(xVelo + (dir*delta*gravity), -4*SPEED,4*SPEED)
 				
 			if isSlipping:
 				velocity.x = xVelo
