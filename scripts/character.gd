@@ -1,14 +1,5 @@
 extends CharacterBody2D
 
-
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
-
-
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
-
 #Ice slippy things
 var isSlipping = false
 var xVelo = 0
@@ -20,11 +11,42 @@ var ropePos = null
 var ropeLen = 0;
 
 
+var SPEED = 300.0 if rope == null else 600.0
+var JUMP_VELOCITY = -400.0
+
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
+
+
+
+
 func _physics_process(delta):
+	
+	if facingLeft && velocity.x > 0:
+		self.transform *= Transform2D.FLIP_X
+		facingLeft = false
+	elif !facingLeft && velocity.x < 0:
+		self.transform *= Transform2D.FLIP_X
+		facingLeft = true
+	
+	if rope != null:
+		rope.set_point_position(1, to_local(ropePos))
+		var rope_direction = Input.get_axis("up", "down")
+		if rope_direction:
+			if ropeLen + rope_direction*delta*800 > 20:
+				ropeLen += rope_direction*delta*800
+		if self.position.distance_to(ropePos) > ropeLen :
+			#print(ropeLen)
+			var dirToRope = (ropePos - self.position).normalized()
+			var clamped_position  = ropePos - dirToRope * min(ropeLen, self.position.distance_to(ropePos))
+			self.position = clamped_position
 	
 	# Add the gravity.
 	if not is_on_floor():
-		velocity.y += gravity * delta
+		velocity.y += min(gravity * delta,400)
+		
 	var space_state = get_world_2d().direct_space_state
 	# use global coordinates, not local to node
 	var query = PhysicsRayQueryParameters2D.create(self.position, Vector2(self.position.x, self.position.y+100))
@@ -49,42 +71,30 @@ func _physics_process(delta):
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("left", "right")
 	if !isSlipping:
-		if direction:
-			velocity.x = direction * SPEED
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
+		if rope != null:
+			if facingLeft and direction == 1:
+				velocity.x *= -0.8
+			elif !facingLeft and direction == -1:
+				velocity.x *= -0.8
+			if direction:
+				velocity.x += direction * SPEED* delta
 			
-		# Handle jump.
-		if Input.is_action_just_pressed("jump") and is_on_floor():
-			velocity.y = JUMP_VELOCITY
+				
+		else:
+			if direction:
+				velocity.x = direction * SPEED 
+			else:
+				velocity.x = move_toward(velocity.x, 0, SPEED)
+				
+			# Handle jump.
+			if Input.is_action_just_pressed("jump") and is_on_floor():
+				velocity.y = JUMP_VELOCITY
 	else:
 		velocity.x = xVelo
 	if velocity.x != 0:
 		xVelo = velocity.x
-	
-	if facingLeft && velocity.x > 0:
-		self.transform *= Transform2D.FLIP_X
-		facingLeft = false
-	elif !facingLeft && velocity.x < 0:
-		self.transform *= Transform2D.FLIP_X
-		facingLeft = true
 
-	
 	move_and_slide()
-	
-	if rope != null:
-		rope.set_point_position(1, to_local(ropePos))
-		var rope_direction = Input.get_axis("up", "down")
-		if rope_direction:
-			ropeLen += rope_direction*delta
-		if self.position.distance_to(ropePos) > ropeLen :
-			print("------------------")
-			#print(ropeLen)
-			print(to_global((to_local(self.position) - to_local(ropePos)).normalized() * ropeLen))
-			print((to_local(self.position) - to_local(ropePos)).normalized() * ropeLen)
-			print(self.position)
-			#self.position = to_global((self.position - ropePos).normalized() * ropeLen)
-			
 
 
 func _input(event):
