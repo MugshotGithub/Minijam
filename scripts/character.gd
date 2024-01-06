@@ -19,6 +19,7 @@ var JUMP_VELOCITY = -400.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var anim = get_node("AnimationPlayer")
+@onready var _animated_sprite = $spaceman
 
 
 
@@ -32,6 +33,7 @@ func _physics_process(delta):
 		facingLeft = true
 	
 	if rope != null:
+		_animated_sprite.frame = 3
 		rope.set_point_position(1, to_local(ropePos))
 		var rope_direction = Input.get_axis("up", "down")
 		if rope_direction:
@@ -105,6 +107,7 @@ func _input(event):
 		if rope != null:
 			rope.queue_free()
 			rope = null
+			_animated_sprite.frame = 4
 		else:
 			var space_state = get_world_2d().direct_space_state
 			
