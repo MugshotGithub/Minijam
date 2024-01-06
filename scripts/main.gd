@@ -9,7 +9,6 @@ func _ready():
 	for i in range(rope_length):
 		var segment = segment_scene.instantiate()
 		rope_holder.add_child(segment)  # Add the segment as a child of the RopeHolder node
-		print('ad')
 		if previous_segment:
 			var joint = PinJoint2D.new()
 			previous_segment.add_child(joint)
