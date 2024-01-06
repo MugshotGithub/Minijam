@@ -1,0 +1,93 @@
+{
+	"textures": [
+		{
+			"image": "ground-0.png",
+			"size": {
+				"w": 320,
+				"h": 64
+			},
+			"sprites": [
+				{
+					"filename": "black.png",
+					"region": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "cyan.png",
+					"region": {
+						"x": 64,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "cyanRampLeft.png",
+					"region": {
+						"x": 128,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "green.png",
+					"region": {
+						"x": 192,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "red.png",
+					"region": {
+						"x": 256,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:d0336a2c3721fb679d37e2942ed97036:f7b2433ad8c63ab00c42f8a8a15b5ae0:56d08923c31c82dba44f3153da309c8e$"
+	}
+}

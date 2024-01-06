@@ -8,13 +8,14 @@ radius = 14.5349
 height = 84.0764
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+floor_stop_on_slope = false
 script = ExtResource("1_p0iqi")
 
-[node name="Worm2" type="Sprite2D" parent="."]
+[node name="Worm" type="Sprite2D" parent="."]
 position = Vector2(7, 0)
 texture = ExtResource("1_cy7n7")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_o8vko")
 
-[node name="Camera2D2" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
