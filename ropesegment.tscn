@@ -1,19 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dr3jub7rljxbi"]
-
-[ext_resource type="Texture2D" uid="uid://dvmc6y4370v5k" path="res://assets/worm.png" id="1_jrt0g"]
+[gd_scene load_steps=2 format=3 uid="uid://dr3jub7rljxbi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kdfg4"]
-radius = 23.0
-height = 68.0
+radius = 13.0
+height = 26.0
 
 [node name="ropesegment" type="RigidBody2D"]
-mass = 0.01
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_kdfg4")
-
-[node name="Worm" type="Sprite2D" parent="."]
-modulate = Color(0.584314, 0.0313726, 0.72549, 1)
-position = Vector2(-0.124999, 0.25)
-scale = Vector2(0.965, 0.645)
-texture = ExtResource("1_jrt0g")
