@@ -76,11 +76,14 @@ func _physics_process(delta):
 		if collided_object is TileMap:
 			var tilemap = collided_object
 			var cellData = tilemap.get_cell_tile_data(0, tilemap.get_coords_for_body_rid (result.rid))
-			isSlipping = cellData.get_custom_data("slip")
 			var isRamp = cellData.get_custom_data("isRamp")
 			if (isRamp):
 				var dir = -1 if cellData.flip_h else 1
+				if velocity.x == 0:
+					xVelo = 0
 				xVelo = clamp(xVelo + (dir*delta*gravity), -4*SPEED,4*SPEED)
+			isSlipping = cellData.get_custom_data("slip")
+			
 				
 			if isSlipping:
 				velocity.x = xVelo

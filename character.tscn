@@ -99,7 +99,8 @@ sprite_frames = SubResource("SpriteFrames_7vs4g")
 shape = SubResource("CapsuleShape2D_o8vko")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.8, 0.8)
+position = Vector2(0, -43)
+zoom = Vector2(0.6, 0.6)
 position_smoothing_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
