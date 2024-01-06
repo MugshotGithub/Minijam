@@ -96,6 +96,10 @@ func _physics_process(delta):
 
 	move_and_slide()
 
+	if rope != null:
+		velocity.y = min(velocity.y,400)
+	print(velocity.y)
+
 
 func _input(event):
 	if event is InputEventMouseButton:
