@@ -38,7 +38,6 @@ func _physics_process(delta):
 			if ropeLen + rope_direction*delta*800 > 20:
 				ropeLen += rope_direction*delta*800
 		if self.position.distance_to(ropePos) > ropeLen :
-			#print(ropeLen)
 			var dirToRope = (ropePos - self.position).normalized()
 			var clamped_position  = ropePos - dirToRope * min(ropeLen, self.position.distance_to(ropePos))
 			self.position = clamped_position
@@ -99,7 +98,6 @@ func _physics_process(delta):
 
 	if rope != null:
 		velocity.y = min(velocity.y,400)
-	print(velocity.y)
 
 
 func _input(event):
