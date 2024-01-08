@@ -27,11 +27,21 @@ var triggered_dialogue_box = [false,false,false,false,false]
 
 func _process(_delta):
 	print(position)
-	if position.y < 3000: # this sucks and should be triggers. Too Bad!
-		if position.x > -700 and position.x < -500 && triggered_dialogue_box[0] != true:
-			dialogue_box_text.text = "I'm not sure I can make that jump."
+	if position.y < 3000 && is_on_floor(): # this sucks and should be triggers. Too Bad!
+		if position.x > -700 and position.x < 1000 && triggered_dialogue_box[0] != true:
+			dialogue_box_text.text = "[center]Oh no! Looks like you've had a nasty fall\nSee if you can find your way back up!\nUse WASD to move and space to jump[/center]"
 			triggered_dialogue_box[0] = true
 			dialogue_box.visible = true
+		if position.x < 4000 and position.x > 3300 && triggered_dialogue_box[1] != true:
+			dialogue_box_text.text = "[center]Those look like some slipery rocks, be careful not to slip![/center]"
+			triggered_dialogue_box[1] = true
+			dialogue_box.visible = true
+		if position.x < 7283 and position.x > 7000 && triggered_dialogue_box[2] != true:
+			dialogue_box_text.text = "[center]Woah a pit and floating rocks!\nLuckily, you bought your trusty ROPE!\nUse your left mouse button to attach your rope to a surface and W and S to scale up and down\nYou can press space to jump off the rope at any time[/center]"
+			triggered_dialogue_box[2] = true
+			dialogue_box.visible = true
+	if position.y < -3745 and position.x < -5503:
+		dialogue_box_text.text = "[center]Freedom at last!\n\n\n(This is the end of the game)[/center]"
 
 
 func _physics_process(delta):
@@ -83,6 +93,10 @@ func _physics_process(delta):
 		if collided_object is TileMap:
 			var tilemap = collided_object
 			var cellData = tilemap.get_cell_tile_data(0, tilemap.get_coords_for_body_rid (result.rid))
+			if cellData.get_custom_data("die"):
+				position.x = -687
+				position.y = 1780
+				return
 			var isRamp = cellData.get_custom_data("isRamp")
 			if (isRamp):
 				var dir = -1 if cellData.flip_h else 1
@@ -93,6 +107,8 @@ func _physics_process(delta):
 			
 				
 			if isSlipping:
+				if (position.x < -1500 and position.y < -500) or triggered_dialogue_box[0] != true:
+					xVelo *= 2
 				velocity.x = xVelo
 	
 
@@ -133,6 +149,8 @@ func _input(event):
 	if event is InputEventMouseButton:
 		if dialogue_box.visible:
 			dialogue_box.visible = false
+		if triggered_dialogue_box[2] != true:
+			return
 		if rope != null:
 			rope.queue_free()
 			rope = null
