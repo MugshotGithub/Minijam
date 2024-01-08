@@ -36,11 +36,16 @@ func _process(_delta):
 			dialogue_box_text.text = "[center]Those look like some slipery rocks, be careful not to slip![/center]"
 			triggered_dialogue_box[1] = true
 			dialogue_box.visible = true
-		if position.x < 7283 and position.x > 7000 && triggered_dialogue_box[2] != true:
+		if position.x < 5684 and position.x > 4803 && triggered_dialogue_box[2] != true:
 			dialogue_box_text.text = "[center]Woah a pit and floating rocks!\nLuckily, you bought your trusty ROPE!\nUse your left mouse button to attach your rope to a surface and W and S to scale up and down\nYou can press space to jump off the rope at any time[/center]"
 			triggered_dialogue_box[2] = true
 			dialogue_box.visible = true
-	if position.y < -3745 and position.x < -5503:
+		if position.x < 7283 and position.x > 7000 && triggered_dialogue_box[3] != true:
+			dialogue_box_text.text = "[center]Those red rocks look deadly, probably don't touch them[/center]"
+			triggered_dialogue_box[3] = true
+			dialogue_box.visible = true
+	if position.y < -3745 and position.x > -5503 and is_on_floor():
+		dialogue_box.visible = true
 		dialogue_box_text.text = "[center]Freedom at last!\n\n\n(This is the end of the game)[/center]"
 
 
@@ -107,7 +112,7 @@ func _physics_process(delta):
 			
 				
 			if isSlipping:
-				if (position.x < -1500 and position.y < -500) or triggered_dialogue_box[0] != true:
+				if triggered_dialogue_box[0] != true:
 					xVelo *= 2
 				velocity.x = xVelo
 	
