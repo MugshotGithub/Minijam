@@ -46,7 +46,18 @@ func _physics_process(delta):
 	
 	# Add the gravity.
 	if not is_on_floor():
-		velocity.y += min(gravity * delta,400)
+		if rope != null and not Input.is_action_just_pressed("jump"):
+			# Apply a smaller gravity when on the rope and not jumping
+			velocity.y = min(velocity.y + gravity * delta * 0.5, 400)
+		else:
+			velocity.y += gravity * delta
+
+	if Input.is_action_just_pressed("jump") and (is_on_floor() or rope != null):
+		velocity.y = JUMP_VELOCITY
+		if rope != null:
+			rope.queue_free()
+			rope = null
+			_animated_sprite.frame = 4
 		
 	var space_state = get_world_2d().direct_space_state
 	# use global coordinates, not local to node
@@ -90,19 +101,18 @@ func _physics_process(delta):
 				velocity.x = direction * SPEED 
 			else:
 				velocity.x = move_toward(velocity.x, 0, SPEED)
-				
-			# Handle jump.
-			if Input.is_action_just_pressed("jump") and is_on_floor():
-				velocity.y = JUMP_VELOCITY
 	else:
 		velocity.x = xVelo
 	if velocity.x != 0:
 		xVelo = velocity.x
 
+	
+	# if rope != null and not Input.is_action_just_pressed("jump"):
+	# 	velocity.y = min(velocity.y,400)
+
 	move_and_slide()
 
-	if rope != null:
-		velocity.y = min(velocity.y,400)
+	print(velocity.y)
 
 
 func _input(event):
