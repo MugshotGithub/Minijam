@@ -20,10 +20,24 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var anim = get_node("AnimationPlayer")
 @onready var _animated_sprite = $spaceman
+@onready var dialogue_box = get_node("../DialogueBox")
+@onready var dialogue_box_text = dialogue_box.get_node("PanelContainer").get_node("RichTextLabel")
 
+var triggered_dialogue_box = [false,false,false,false,false]
+
+func _process(_delta):
+	print(position)
+	if position.y < 3000: # this sucks and should be triggers. Too Bad!
+		if position.x > -700 and position.x < -500 && triggered_dialogue_box[0] != true:
+			dialogue_box_text.text = "I'm not sure I can make that jump."
+			triggered_dialogue_box[0] = true
+			dialogue_box.visible = true
 
 
 func _physics_process(delta):
+
+	if dialogue_box.visible:
+		return
 	
 	if facingLeft && velocity.x > 0:
 		self.transform *= Transform2D.FLIP_X
@@ -112,11 +126,13 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-	print(velocity.y)
+	# print(velocity.y)
 
 
 func _input(event):
 	if event is InputEventMouseButton:
+		if dialogue_box.visible:
+			dialogue_box.visible = false
 		if rope != null:
 			rope.queue_free()
 			rope = null
